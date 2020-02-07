@@ -3,3 +3,4 @@ obj
 .vscode
 appsettings.json
 *.db
+client-app\node_modules
