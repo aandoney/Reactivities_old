@@ -15,7 +15,7 @@ import {
   combineValidators,
   isRequired,
   composeValidators,
-  hasLengthGreaterThan
+  hasLengthGreaterThan,
 } from "revalidate";
 import { RootStoreContext } from "../../../app/stores/rootStore";
 
@@ -24,13 +24,13 @@ const validate = combineValidators({
   description: composeValidators(
     isRequired("Description"),
     hasLengthGreaterThan(4)({
-      message: "Description needs to be at least 5 characters"
+      message: "Description needs to be at least 5 characters",
     })
   )(),
   city: isRequired("City"),
   venue: isRequired("Venue"),
   date: isRequired("Date"),
-  time: isRequired("Time")
+  time: isRequired("Time"),
 });
 
 interface DetailParams {
@@ -39,14 +39,14 @@ interface DetailParams {
 
 const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
   match,
-  history
+  history,
 }) => {
   const rootStore = useContext(RootStoreContext);
   const {
     createActivity,
     editActivity,
     submitting,
-    loadActivity
+    loadActivity,
   } = rootStore.activityStore;
 
   const [activity, setActivity] = useState(new ActivityFormValues());
@@ -56,7 +56,7 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
     if (match.params.id) {
       setLoading(true);
       loadActivity(match.params.id)
-        .then(activity => setActivity(new ActivityFormValues(activity)))
+        .then((activity) => setActivity(new ActivityFormValues(activity)))
         .finally(() => setLoading(false));
     }
   }, [loadActivity, match.params.id]);
@@ -66,13 +66,13 @@ const ActivityForm: React.FC<RouteComponentProps<DetailParams>> = ({
     const { date, time, ...activity } = values;
     activity.date = dateAndTime;
     if (activity.id) {
+      editActivity(activity);
+    } else {
       let newActivity = {
         ...activity,
-        id: uuid()
+        id: uuid(),
       };
       createActivity(newActivity);
-    } else {
-      editActivity(activity);
     }
   };
 
