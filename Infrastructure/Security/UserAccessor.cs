@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Http;
 
 namespace Infrastructure.Security
 {
-    public class UserAccessor : IUserAccessor
+    public class UserAccesor : IUserAccessor
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
-        public UserAccessor(IHttpContextAccessor httpContextAccessor)
+        public UserAccesor(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }

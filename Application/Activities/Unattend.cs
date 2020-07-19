@@ -20,10 +20,10 @@ namespace Application.Activities
         public class Handler : IRequestHandler<Command>
         {
             private readonly DataContext _context;
-            private readonly IUserAccesor _userAccesor;
-            public Handler(DataContext context, IUserAccesor userAccesor)
+            private readonly IUserAccessor _userAccessor;
+            public Handler(DataContext context, IUserAccessor userAccessor)
             {
-                _userAccesor = userAccesor;
+                _userAccessor = userAccessor;
                 _context = context;
             }
 
@@ -36,7 +36,7 @@ namespace Application.Activities
                     new { Activity = "Could not find activity" });
 
                 var user = await _context.Users.SingleOrDefaultAsync(x =>
-                    x.UserName == _userAccesor.GetCurrentUsername());
+                    x.UserName == _userAccessor.GetCurrentUsername());
 
                 var attendance = await _context.UserActivities
                     .SingleOrDefaultAsync(x => x.ActivityId == activity.Id && x.AppUserId == user.Id);
