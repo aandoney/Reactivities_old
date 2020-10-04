@@ -15,8 +15,8 @@ namespace API
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            
-            using (var scope = host.Services.CreateScope()) 
+
+            using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
                 try
@@ -41,6 +41,10 @@ namespace API
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
+                    webBuilder.ConfigureKestrel((context, options) =>
+                    {
+                        options.AddServerHeader = false;
+                    });
                 });
     }
 }
