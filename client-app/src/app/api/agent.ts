@@ -110,6 +110,7 @@ const Profiles = {
     requests.get(`/profiles/${username}/activities?predicate=${predicate}`),
 };
 
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   Activities,
   User,
