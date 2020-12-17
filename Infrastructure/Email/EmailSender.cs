@@ -19,7 +19,7 @@ namespace Infrastructure.Email
         public async Task SendEmailAsync(string userEmail, string emailSubject, string message)
         {
             Configuration.Default.AddApiKey("api-key", _settings.Value.Key);
-            var client = new SMTPApi();
+            var client = new TransactionalEmailsApi();
             var msg = new SendSmtpEmail(
                 new SendSmtpEmailSender(_settings.Value.User, "angel_andoney@live.com.mx"),
                 new List<SendSmtpEmailTo> { new SendSmtpEmailTo(userEmail) },
